@@ -1,4 +1,5 @@
-// let { MessageRoutes } = require("./components/example/message.routes");
+let { UserRoutes } = require("./components/user/user.routes");
+let { AuthRoutes } = require("./components/auth/auth.routes");
 /**
  * Init Express REST routes
  *
@@ -13,7 +14,8 @@ function initiateRouter(app) {
     });
     app.get(prefix, (req, res) => res.send("PING"));
 
-    // app.use(`${prefix}/messages`, new MessageRoutes().router);
+    app.use(`${prefix}/user`, new UserRoutes().router);
+    app.use(`${prefix}/auth`, new AuthRoutes().router);
 }
 module.exports = {
     initiateRouter,

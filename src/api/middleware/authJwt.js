@@ -2,14 +2,14 @@ const User = require("../components/user/user.model");
 const Role = require("../components/role/role.model");
 const { ApiResult } = require("../JSend");
 
-verifyToken = (req, res, next) => {
+const verifyToken = (req, res, next) => {
   let token = req.headers["x-access-token"];
 
   if (!token) {
     return res.status(403).send({ message: "No token provided!" });
   }
 
-  jwt.verify(token, config.secret, (err, decoded) => {
+  jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
     if (err) {
       return res.status(401).send({ message: "Unauthorized!" });
     }
@@ -18,7 +18,7 @@ verifyToken = (req, res, next) => {
   });
 };
 
-isAdmin = (req, res, next) => {
+const isAdmin = (req, res, next) => {
   User.findById(req.userId).exec((err, user) => {
     if (err) {
       res.status(500).send({ message: err });
@@ -49,7 +49,7 @@ isAdmin = (req, res, next) => {
   });
 };
 
-isModerator = (req, res, next) => {
+const isModerator = (req, res, next) => {
   User.findById(req.userId).exec((err, user) => {
     if (err) {
       res.status(500).send({ message: err });
@@ -80,9 +80,8 @@ isModerator = (req, res, next) => {
   });
 };
 
-const authJwt = {
+module.exports = {
   verifyToken,
   isAdmin,
   isModerator
 };
-module.exports = authJwt;
