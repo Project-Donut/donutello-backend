@@ -6,3 +6,5 @@ NODE_ENV = "development"
 MONGO_URI = "<MONGODB CONNECTION STRING>"
 JWT_SECRET = "<SECRET>"
 ```
+
+https://www.bezkoder.com/node-js-mongodb-auth-jwt/
