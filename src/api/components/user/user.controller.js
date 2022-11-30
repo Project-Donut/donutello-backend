@@ -15,3 +15,7 @@ class UserController {
         res.status(200).send("Moderator Content.");
     }
 }
+
+module.exports = {
+    UserController,
+};
