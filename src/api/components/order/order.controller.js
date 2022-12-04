@@ -46,7 +46,8 @@ class OrderController {
     async cancelOrder(req, res) {
         try {
             const id = req.params.id;
-            const deletedData = await Order.findByIdAndDelete(id);
+            const options = { new: true };
+            const deletedData = await Order.findByIdAndUpdate(id, { status: "cancelled" }, options);
             res.status(200).json(new ApiResult("success", deletedData));
         } catch (error) {
             res.status(500).send(new ApiResult("error", null, error));
