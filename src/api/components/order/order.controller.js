@@ -23,8 +23,8 @@ class OrderController {
     async createOrder(req, res) {
         try {
             const data = new Order({
-                user: req.body.user,
-                message: req.body.message,
+                ...req.body,
+                status: "pending",
             });
             const savedData = await data.save();
             res.status(200).json(new ApiResult("success", savedData));
