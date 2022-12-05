@@ -108,6 +108,10 @@ class AuthController {
                 }));
             });
     }
+
+    verifyToken(req, res) {
+        res.status(200).json(new ApiResult("success"));
+    }
 }
 
 module.exports = {
