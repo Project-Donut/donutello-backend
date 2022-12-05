@@ -1,50 +1,7 @@
 const mongoose = require('mongoose');
 
-const addressSchema = new mongoose.Schema({
-    street: {
-        required: true,
-        type: String
-    },
-    city: {
-        required: true,
-        type: String
-    },
-    postalCode: {
-        required: true,
-        type: String
-    },
-    country: {
-        required: true,
-        type: String
-    }
-});
-
-const customerSchema = new mongoose.Schema({
-    firstName: {
-        required: true,
-        type: String
-    },
-    lastName: {
-        required: true,
-        type: String
-    },
-    email: {
-        required: true,
-        type: String
-    },
-    phone: {
-        required: false,
-        type: String
-    },
-    company: {
-        required: false,
-        type: String
-    },
-    billingAddress: {
-        required: true,
-        type: addressSchema
-    }
-});
+const { addressSchema } = require('../address.schema');
+const { customerSchema } = require('../customer.schema');
 
 const dataSchema = new mongoose.Schema({
     address: {
@@ -55,7 +12,7 @@ const dataSchema = new mongoose.Schema({
         required: true,
         type: customerSchema
     },
-    order: null,
+    // order: null,
     count: {
         required: true,
         type: Number
