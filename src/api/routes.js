@@ -1,5 +1,6 @@
 let { UserRoutes } = require("./components/user/user.routes");
 let { AuthRoutes } = require("./components/auth/auth.routes");
+let { OrderRoutes } = require("./components/order/order.routes");
 /**
  * Init Express REST routes
  *
@@ -16,6 +17,7 @@ function initiateRouter(app) {
 
     app.use(`${prefix}/user`, new UserRoutes().router);
     app.use(`${prefix}/auth`, new AuthRoutes().router);
+    app.use(`${prefix}/order`, new OrderRoutes().router);
 }
 module.exports = {
     initiateRouter,
