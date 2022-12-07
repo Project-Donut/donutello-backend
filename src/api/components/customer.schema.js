@@ -28,7 +28,7 @@ const dataSchema = new mongoose.Schema({
     }
 });
 
-dataSchema.virtual("displayName").get(function() {
+dataSchema.virtual("fullName").get(function() {
     return this.company || `${this.firstName} ${this.customer.lastName}`;
 });
 

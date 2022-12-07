@@ -19,7 +19,7 @@ const dataSchema = new mongoose.Schema({
     }
 });
 
-dataSchema.virtual("displayName").get(function() {
+dataSchema.virtual("fullAddress").get(function() {
     return `${this.street}, ${this.postalCode} ${this.city}, ${this.country}`;
 });
 
