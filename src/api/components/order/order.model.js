@@ -17,6 +17,10 @@ const dataSchema = new mongoose.Schema({
         required: true,
         type: Number
     },
+    dateBy: {
+        required: true,
+        type: Date,
+    },
     status: {
         required: true,
         type: String,
