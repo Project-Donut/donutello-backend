@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const addressSchema = new mongoose.Schema({
+const dataSchema = new mongoose.Schema({
     street: {
         required: true,
         type: String
@@ -19,6 +19,13 @@ const addressSchema = new mongoose.Schema({
     }
 });
 
+dataSchema.virtual("displayName").get(function() {
+    return `${this.street}, ${this.postalCode} ${this.city}, ${this.country}`;
+});
+
+dataSchema.set("toJSON", { virtuals: true });
+dataSchema.set("toObject", { virtuals: true });
+
 module.exports = {
-    addressSchema
+    addressSchema: dataSchema
 }

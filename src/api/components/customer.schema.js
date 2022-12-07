@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const { addressSchema } = require('./address.schema');
 
-const customerSchema = new mongoose.Schema({
+const dataSchema = new mongoose.Schema({
     firstName: {
         required: true,
         type: String
@@ -28,6 +28,13 @@ const customerSchema = new mongoose.Schema({
     }
 });
 
+dataSchema.virtual("displayName").get(function() {
+    return this.company || `${this.firstName} ${this.customer.lastName}`;
+});
+
+dataSchema.set("toJSON", { virtuals: true });
+dataSchema.set("toObject", { virtuals: true });
+
 module.exports = {
-    customerSchema
+    customerSchema: dataSchema
 }
