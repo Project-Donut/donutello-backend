@@ -1,6 +1,7 @@
 const { Router } = require("express");
 const { AuthController } = require("./auth.controller");
 const { checkDuplicateUsernameOrEmail, checkRolesExisted} = require("../../middleware/verifySignup");
+const { verifyToken } = require("../../middleware/authJwt");
 
 class AuthRoutes {
     controller = new AuthController();
@@ -17,6 +18,7 @@ class AuthRoutes {
         ], this.controller.signup);
 
         this.router.post("/signin", this.controller.signin);
+        this.router.get("/verify", [verifyToken], this.controller.verifyToken);
     }
 }
 
