@@ -12,13 +12,15 @@ class OrderController {
         });
     }
     getOrder(req, res) {
-        Order.find(req.query, (error, data) => {
-            if (error) {
-                res.status(500).send(new ApiResult("error", null, error));
-            } else {
-                res.status(200).json(new ApiResult("success", data));
-            }
-        });
+        Order.find(req.query)
+            .sort({ dateBy: 1 })
+            .exec((error, data) => {
+                if (error) {
+                    res.status(500).send(new ApiResult("error", null, error));
+                } else {
+                    res.status(200).json(new ApiResult("success", data));
+                }
+            });
     }
     async createOrder(req, res) {
         try {
@@ -37,7 +39,11 @@ class OrderController {
             const id = req.params.id;
             const data = req.body;
             const options = { new: true };
-            const updatedData = await Order.findByIdAndUpdate(id, data, options);
+            const updatedData = await Order.findByIdAndUpdate(
+                id,
+                data,
+                options
+            );
             res.status(200).json(new ApiResult("success", updatedData));
         } catch (error) {
             res.status(500).send(new ApiResult("error", null, error));
@@ -47,7 +53,11 @@ class OrderController {
         try {
             const id = req.params.id;
             const options = { new: true };
-            const deletedData = await Order.findByIdAndUpdate(id, { status: "cancelled" }, options);
+            const deletedData = await Order.findByIdAndUpdate(
+                id,
+                { status: "cancelled" },
+                options
+            );
             res.status(200).json(new ApiResult("success", deletedData));
         } catch (error) {
             res.status(500).send(new ApiResult("error", null, error));
