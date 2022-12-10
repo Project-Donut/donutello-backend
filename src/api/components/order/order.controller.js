@@ -12,18 +12,32 @@ class OrderController {
         });
     }
     getOrder(req, res) {
-        if (Object.keys(req.query).length === 0) {
-            // query for multiple order types
-            req.query = {
-                $or: [
-                    { status: "pending" },
-                    { status: "processing" },
-                    { status: "shipped" },
-                ],
-            };
+        // Sort from query
+        let sort = req.query.sort || 'Priority'; 
+        let order = req.query.order || 1;
+        let mongoSort = {};
+        mongoSort[sort] = order;
+
+
+        // Filter from query;
+        let mongoFilter = {
+            $or: [
+                { status: "pending" },
+                { status: "processing" },
+                { status: "shipped" },
+            ],
+        };
+        let filterEntries;
+        if (!!req.query.filter) {
+            // Cast filter query to JSON string, then to JS object
+            filterEntries = JSON.parse(`{"filter":${req.query.filter}}`).filter;
+            mongoFilter = { $and: filterEntries};
         }
-        Order.find(req.query)
-            .sort({ dateBy: 1 })
+
+        // Execute Request
+        Order.find(mongoFilter)
+            .sort({'dateBy': 1})
+            .sort(mongoSort)
             .exec((error, data) => {
                 if (error) {
                     res.status(500).send(new ApiResult("error", null, error));
