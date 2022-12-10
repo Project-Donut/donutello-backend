@@ -18,7 +18,6 @@ class OrderController {
         let mongoSort = {};
         mongoSort[sort] = order;
 
-
         // Filter from query;
         let mongoFilter = {
             $or: [
