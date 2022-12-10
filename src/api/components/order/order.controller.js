@@ -12,6 +12,16 @@ class OrderController {
         });
     }
     getOrder(req, res) {
+        if (Object.keys(req.query).length === 0) {
+            // query for multiple order types
+            req.query = {
+                $or: [
+                    { status: "pending" },
+                    { status: "processing" },
+                    { status: "shipped" },
+                ],
+            };
+        }
         Order.find(req.query)
             .sort({ dateBy: 1 })
             .exec((error, data) => {
