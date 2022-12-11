@@ -57,7 +57,7 @@ class AuthController {
                             return;
                         }
 
-                        res.send(new JSend);
+                        res.send(new ApiResult("success", null, null));
                     });
                 });
             }
