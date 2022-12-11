@@ -23,8 +23,7 @@ class DonutController {
     async createDonut(req, res) {
         try {
             const data = new Donut({
-                user: req.body.user,
-                donut: req.body.donut,
+                ...req.body
             });
             const savedData = await data.save();
             res.status(200).json(new ApiResult("success", savedData));
