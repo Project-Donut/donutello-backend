@@ -16,7 +16,7 @@ class OrderController {
         let skip = (Number)(req.query.skip) || 0;
         let limit = (Number)(req.query.limit) || 10;
         let sort = req.query.sort || 'status'; 
-        let order = req.query.order || 1;
+        let order = req.query.order || -1;
         let mongoSort = [[sort, (Number)(order)]];
         if (mongoSort[0][0] !== "dateBy") {
             mongoSort = [
@@ -48,12 +48,10 @@ class OrderController {
                 } else {
                     for (let sort in mongoSort) {
                         sort = mongoSort[sort];
-                        console.log(sort);
                         data.sort((a, b) => {
                             return leveledSort(sort[0], a, b, sort[1]);
                         });
                     }
-                    console.log({limit, skip});
                     const totalRecords = data.length;
                     data = paginate(data, limit, skip);
                     const response = {
