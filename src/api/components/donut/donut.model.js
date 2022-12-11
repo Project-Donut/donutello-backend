@@ -37,4 +37,4 @@ const dataSchema = new mongoose.Schema({
     },
 }, { timestamps: true });
 
-module.exports = mongoose.model('Message', dataSchema)
+module.exports = mongoose.model('Donut', dataSchema)
