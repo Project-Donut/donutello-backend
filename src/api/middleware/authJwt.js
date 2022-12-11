@@ -25,10 +25,10 @@ const isAdmin = (req, res, next) => {
       res.status(500).send({ message: err });
       return;
     }
-
+    
     Role.find(
       {
-        _id: { $in: user.roles }
+        _id: { $in: user?.roles }
       },
       (err, roles) => {
         if (err) {
