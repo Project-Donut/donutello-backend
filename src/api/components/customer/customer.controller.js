@@ -25,7 +25,6 @@ class CustomerController {
             const data = new Customer({
                 ...req.body
             });
-            console.log(req.body);
             const savedData = await data.save();
             res.status(200).json(new ApiResult("success", savedData));
         } catch (error) {

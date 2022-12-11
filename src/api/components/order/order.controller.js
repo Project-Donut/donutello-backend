@@ -1,6 +1,6 @@
 const Order = require("./order.model");
 const { ApiResult } = require("../../JSend");
-
+const { leveledSort, paginate } = require("../../utils/sort");
 class OrderController {
     getOrderByID(req, res) {
         Order.findById(req.params.id, (error, data) => {
@@ -13,17 +13,23 @@ class OrderController {
     }
     getOrder(req, res) {
         // Sort from query
-        let sort = req.query.sort || 'Priority'; 
+        let skip = (Number)(req.query.skip) || 0;
+        let limit = (Number)(req.query.limit) || 10;
+        let sort = req.query.sort || 'status'; 
         let order = req.query.order || 1;
-        let mongoSort = {};
-        mongoSort[sort] = order;
-
+        let mongoSort = [[sort, (Number)(order)]];
+        if (mongoSort[0][0] !== "dateBy") {
+            mongoSort = [
+                ["dateBy", 1],
+                ...mongoSort
+            ];
+        }
         // Filter from query;
         let mongoFilter = {
             $or: [
-                { status: "pending" },
-                { status: "processing" },
-                { status: "shipped" },
+                { status: "100 - pending" },
+                { status: "200 - processing" },
+                { status: "300 - shipped" },
             ],
         };
         let filterEntries;
@@ -35,13 +41,26 @@ class OrderController {
 
         // Execute Request
         Order.find(mongoFilter)
-            .sort({'dateBy': 1})
-            .sort(mongoSort)
-            .exec((error, data) => {
+            .populate('customer')
+            .exec(function(error, data) {
                 if (error) {
                     res.status(500).send(new ApiResult("error", null, error));
                 } else {
-                    res.status(200).json(new ApiResult("success", data));
+                    for (let sort in mongoSort) {
+                        sort = mongoSort[sort];
+                        console.log(sort);
+                        data.sort((a, b) => {
+                            return leveledSort(sort[0], a, b, sort[1]);
+                        });
+                    }
+                    console.log({limit, skip});
+                    const totalRecords = data.length;
+                    data = paginate(data, limit, skip);
+                    const response = {
+                        totalRecords,
+                        orders: data
+                    }
+                    res.status(200).json(new ApiResult("success", response));
                 }
             });
     }
@@ -49,7 +68,7 @@ class OrderController {
         try {
             const data = new Order({
                 ...req.body,
-                status: "pending",
+                status: "100 - pending",
             });
             const savedData = await data.save();
             res.status(200).json(new ApiResult("success", savedData));
