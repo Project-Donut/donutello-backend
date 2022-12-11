@@ -10,7 +10,7 @@ const dataSchema = new mongoose.Schema({
     toppingType: {
         required: false,
         type: String,
-        enum: ['Sprinkels','Crumble','Flakes','Geen',],
+        enum: ['Sprinkles','Crumble','Flakes','Geen',],
         default: "Sprinkels",
     },
     toppingColour: {
