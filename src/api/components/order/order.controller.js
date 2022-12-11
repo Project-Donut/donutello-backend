@@ -1,6 +1,6 @@
 const Order = require("./order.model");
 const { ApiResult } = require("../../JSend");
-const { leveledSort, paginate } = require("../../utils/sort");
+const { leveledSort, paginate } = require("../../../utils/sort");
 class OrderController {
     getOrderByID(req, res) {
         Order.findById(req.params.id, (error, data) => {

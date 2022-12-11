@@ -12,7 +12,7 @@ function initiateRouter(app) {
     const prefix = "/api/v1";
 
     app.get("/", (req, res) => {
-        res.sendStatus(200);
+        res.status(200).send("OK");
     });
     app.get(prefix, (req, res) => res.send("PING"));
 
