@@ -2,6 +2,10 @@ const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
 const Role = require("./src/api/components/role/role.model");
+require("./src/api/components/customer/customer.model");
+require("./src/api/components/donut/donut.model");
+require("./src/api/components/order/order.model");
+require("./src/api/components/user/user.model");
 const { initiateRouter } = require("./src/api/routes");
 
 const app = express();

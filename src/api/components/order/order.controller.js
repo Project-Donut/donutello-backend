@@ -5,7 +5,7 @@ class OrderController {
     getOrderByID(req, res) {
         Order.findById(req.params.id, (error, data) => {
             if (error) {
-                res.status(500).send(new ApiResult("error", null, error));
+                res.status(500).send(new ApiResult("error", error.stack, error.message));
             } else {
                 res.status(200).json(new ApiResult("success", data));
             }
@@ -44,7 +44,7 @@ class OrderController {
             .populate('customer')
             .exec(function(error, data) {
                 if (error) {
-                    res.status(500).send(new ApiResult("error", null, error));
+                    res.status(500).send(new ApiResult("error", error.stack, error.message));
                 } else {
                     for (let sort in mongoSort) {
                         sort = mongoSort[sort];
@@ -71,7 +71,7 @@ class OrderController {
             const savedData = await data.save();
             res.status(200).json(new ApiResult("success", savedData));
         } catch (error) {
-            res.status(500).send(new ApiResult("error", null, error));
+            res.status(500).send(new ApiResult("error", error.stack, error.message));
         }
     }
     async updateOrder(req, res) {
@@ -86,7 +86,7 @@ class OrderController {
             );
             res.status(200).json(new ApiResult("success", updatedData));
         } catch (error) {
-            res.status(500).send(new ApiResult("error", null, error));
+            res.status(500).send(new ApiResult("error", error.stack, error.message));
         }
     }
     async cancelOrder(req, res) {
@@ -100,7 +100,7 @@ class OrderController {
             );
             res.status(200).json(new ApiResult("success", deletedData));
         } catch (error) {
-            res.status(500).send(new ApiResult("error", null, error));
+            res.status(500).send(new ApiResult("error", error.stack, error.message));
         }
     }
 }
