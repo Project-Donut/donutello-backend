@@ -1,6 +1,6 @@
 const { Router } = require("express");
 const { AuthController } = require("./auth.controller");
-const { checkDuplicateUsernameOrEmail, checkRolesExisted} = require("../../middleware/verifySignup");
+const { checkDuplicateUsernameOrEmail, checkRolesExisted} = require("../../middleware/verifySignup.js");
 const { verifyToken } = require("../../middleware/authJwt");
 
 class AuthRoutes {
