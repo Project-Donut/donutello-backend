@@ -27,8 +27,8 @@ const dataSchema = new mongoose.Schema({
     fillingFlavour: {
         required: false,
         type: String,
-        enum: ['Pudding','Rijstpap','Nutella','Willekeurig'],
-        default: "Pudding",
+        enum: ['Pudding','Rijstpap','Nutella','Willekeurig','Geen'],
+        default: "Geen",
     },
     logoImage: {
         required: false,
