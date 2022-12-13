@@ -13,6 +13,11 @@ const dataSchema = new mongoose.Schema(
             type: mongoose.Types.ObjectId,
             ref: "Customer",
         },
+        donut: {
+            required: true,
+            type: mongoose.Types.ObjectId,
+            ref: "Donut",
+        },
         count: {
             required: true,
             type: Number,
