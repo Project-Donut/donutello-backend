@@ -4,7 +4,7 @@ const dataSchema = new mongoose.Schema({
     icingFlavour: {
         required: true,
             type: String,
-            enum: ['Chocolade','Snickers','Oreo','Limoen','Kokos','Kersen','Pistache',],
+            enum: ['Aardbei','Chocolade','Snickers','Oreo','Limoen','Kokos','Kersen','Pistache',],
             default: "Chocolade",
     },
     toppingType: {
@@ -15,7 +15,7 @@ const dataSchema = new mongoose.Schema({
     toppingColour: {
         required: false,
         type: String,
-        enum: ['Regenboog','Wit','Bruin'],
+        enum: ['Roze','Wit','Bruin'],
         default: "Regenboog",
     },
     crumbleFlavour: {
@@ -27,8 +27,8 @@ const dataSchema = new mongoose.Schema({
     fillingFlavour: {
         required: false,
         type: String,
-        enum: ['Pudding','Rijstpap','Nutella','Willekeurig'],
-        default: "Pudding",
+        enum: ['Pudding','Rijstpap','Nutella','Willekeurig','Geen'],
+        default: "Geen",
     },
     logoImage: {
         required: false,
