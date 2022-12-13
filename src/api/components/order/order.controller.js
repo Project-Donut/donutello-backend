@@ -42,6 +42,7 @@ class OrderController {
         // Execute Request
         Order.find(mongoFilter)
             .populate('customer')
+            .populate('donut')
             .exec(function(error, data) {
                 if (error) {
                     res.status(500).send(new ApiResult("error", error.stack, error.message));
